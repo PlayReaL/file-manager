@@ -22,6 +22,10 @@ export const parseArgs = (str) => {
         }
     });
 
+    if (tmpStr.length > 0) {
+        res.push(tmpStr);
+    }
+
     if (insideQuotes) {
         return undefined;
     }

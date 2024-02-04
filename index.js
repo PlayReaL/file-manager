@@ -1,6 +1,8 @@
 import os from "node:os";
 import { parseArgs } from "./src/fmArgs.js";
 import { getUserName, exitApp } from "./src/fmFileManager.js";
+import { commandOs } from "./src/fmOs.js";
+import { parse } from "node:path";
 
 const userName = getUserName();
 let currentPath = os.homedir();
@@ -21,10 +23,14 @@ process.stdin.on("data", (data) => {
       command = str.substring(0, spaceIdx);
       args = str.substring(spaceIdx + 1);
     }
+    const argsArr = parseArgs(args);
 
     switch (command) {
         case "test":
             process.stdout.write("test\n");
+            break;
+        case "os":
+            commandOs(argsArr);
             break;
         case ".exit":
             exitApp(userName);
