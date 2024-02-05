@@ -11,6 +11,7 @@ export const commandOs = (args) => {
           return;
       case "--cpus":
           const cpuData = os.cpus();
+          console.log("Overall amount of CPUS", cpuData.length);
           console.table(cpuData);
           return;
       case "--homedir":
