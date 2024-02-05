@@ -31,7 +31,7 @@ export const compress = async (currentDir, args) => {
             const compressBrotli = zlib.createBrotliCompress();
             await stream.promises.pipeline(src, compressBrotli, dest);
         } catch (error) {
-            console.log("Operation failed", error);
+            console.log("Operation failed");
         }
     }
 };
@@ -64,7 +64,7 @@ export const decompress = async (currentDir, args) => {
           const compressBrotli = zlib.createBrotliDecompress();
           await stream.promises.pipeline(src, compressBrotli, dest);
       } catch (error) {
-          console.log("Operation failed", error);
+          console.log("Operation failed");
       }
   }
 };

@@ -36,7 +36,8 @@ export const cd = async (currentDir, args) => {
     }
     try {
         folderPath = path.normalize(folderPath);
-        if (fs.lstatSync(folderPath).isDirectory()) {
+        const t = await fs.promises.lstat(folderPath);
+        if (t.isDirectory()) {
             res = folderPath;
             process.chdir(folderPath);
         } else {
@@ -54,11 +55,18 @@ export const ls = async (currentDir, args) => {
         process.stdout.write("Invalid input\n");
         return;
     }
-    const files = fs.readdirSync(currentDir, {withFileTypes: true});
+    const files = await fs.promises.readdir(currentDir, {
+        withFileTypes: true,
+    });
     const res = [];
     for (let i = 0; i < files.length; i++) {
-        res.push({ name: files[i].name, type: files[i].isDirectory() ? "directory" : "file" });
+        res.push({
+            name: files[i].name,
+            type: files[i].isDirectory() ? "directory" : "file",
+        });
     }
-    res.sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name));
+    res.sort(
+        (a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name)
+    );
     console.table(res);
 };

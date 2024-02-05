@@ -13,10 +13,13 @@ export const cat = async (currentDir, args) => {
         filePath = path.join(currentDir, args[0]);
     }
     try {
-        const content = await fs.promises.readFile(filePath, "utf-8");
-        console.log(content);
+        const readStream = fs.createReadStream(filePath, "utf-8");
+        for await (const chunk of readStream) {
+            process.stdout.write(chunk);
+        }
+        process.stdout.write("\n");
     } catch (error) {
-        console.log("Operation failed");
+        console.log("Operation failed", error);
     }
 };
 

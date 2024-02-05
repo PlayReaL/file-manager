@@ -20,6 +20,6 @@ export const commandHash = async (currentDir, args) => {
         hashFuction.update(content);
         console.log(`${hashFuction.digest("hex")}`);
     } catch (error) {
-        console.log("Operation failed", error);
+        console.log("Operation failed");
     }
 };
