@@ -5,7 +5,8 @@ import { getUserName, exitApp } from "./src/fmFileManager.js";
 
 import { cat, add, rn, cp, mv, rm } from "./src/fmFiles.js";
 import { commandOs } from "./src/fmOs.js";
-import { commandHash} from "./src/fmHash.js";
+import { commandHash } from "./src/fmHash.js";
+import { compress, decompress } from "./src/fmZip.js";
 
 const userName = getUserName();
 let currentPath = os.homedir();
@@ -50,6 +51,12 @@ const processInput = async (data) => {
             break;
         case "hash":
             await commandHash(currentPath, argsArr);
+            break;
+        case "compress":
+            await compress(currentPath, argsArr);
+            break;
+        case "decompress":
+            await decompress(currentPath, argsArr);
             break;
         case ".exit":
             exitApp(userName);
