@@ -140,3 +140,22 @@ export const mv = async (currentDir, args) => {
         }
     }
 };
+
+export const rm = async (currentDir, args) => {
+    if (args.length !== 1) {
+        process.stdout.write("Invalid input\n");
+        return;
+    }
+    let filePath = "";
+    if (path.isAbsolute(args[0])) {
+        filePath = args[0];
+    } else {
+        filePath = path.join(currentDir, args[0]);
+    }
+    try {
+        await fs.promises.access(filePath, fs.promises.constants.F_OK);
+        await fs.promises.unlink(filePath);
+    } catch (error) {
+        console.log("Operation failed");
+    }
+};
