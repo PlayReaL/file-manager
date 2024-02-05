@@ -3,6 +3,7 @@ import os from "node:os";
 import { parseArgs } from "./src/fmArgs.js";
 import { getUserName, exitApp } from "./src/fmFileManager.js";
 
+import { up, cd, ls } from "./src/fmNavigation.js";
 import { cat, add, rn, cp, mv, rm } from "./src/fmFiles.js";
 import { commandOs } from "./src/fmOs.js";
 import { commandHash } from "./src/fmHash.js";
@@ -25,8 +26,14 @@ const processInput = async (data) => {
     const argsArr = parseArgs(args);
 
     switch (command) {
-        case "test":
-            process.stdout.write("test\n");
+        case "up":
+            currentPath = await up(currentPath, argsArr);
+            break;
+        case "cd":
+            currentPath = await cd(currentPath, argsArr);
+            break;
+        case "ls":
+            await ls(currentPath, argsArr);
             break;
         case "cat":
             await cat(currentPath, argsArr);
