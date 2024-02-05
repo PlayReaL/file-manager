@@ -49,4 +49,16 @@ export const cd = async (currentDir, args) => {
     return res;
 };
 
-export const ls = async (currentDir, args) => {};
+export const ls = async (currentDir, args) => {
+    if (args.length !== 0) {
+        process.stdout.write("Invalid input\n");
+        return;
+    }
+    const files = fs.readdirSync(currentDir, {withFileTypes: true});
+    const res = [];
+    for (let i = 0; i < files.length; i++) {
+        res.push({ name: files[i].name, type: files[i].isDirectory() ? "directory" : "file" });
+    }
+    res.sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name));
+    console.table(res);
+};
