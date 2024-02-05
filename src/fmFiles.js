@@ -14,3 +14,16 @@ export const cat = async (currentDir, args) => {
         console.log("Operation failed");
     }
 };
+
+export const add = async (currentDir, args) => {
+    if (args.length !== 1) {
+        process.stdout.write("Invalid input\n");
+        return;
+    }
+    const filePath = path.join(currentDir, args[0]);
+    try {
+        await fs.promises.writeFile(filePath, "", { flag: "wx" });
+    } catch (error) {
+        console.log("Operation failed");
+    }
+};
