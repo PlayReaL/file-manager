@@ -12,7 +12,13 @@ export const commandOs = (args) => {
       case "--cpus":
           const cpuData = os.cpus();
           console.log("Overall amount of CPUS", cpuData.length);
-          console.table(cpuData);
+          const newData = cpuData.map((cpu) => {
+              return {
+                  Model: cpu.model,
+                  "Clock rate": `${cpu.speed/1000} GHz`
+              };
+          })
+          console.table(newData);
           return;
       case "--homedir":
           console.log(os.homedir());
