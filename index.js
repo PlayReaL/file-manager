@@ -3,7 +3,7 @@ import os from "node:os";
 import { parseArgs } from "./src/fmArgs.js";
 import { getUserName, exitApp } from "./src/fmFileManager.js";
 
-import { cat, add, rn } from "./src/fmFiles.js";
+import { cat, add, rn, cp } from "./src/fmFiles.js";
 import { commandOs } from "./src/fmOs.js";
 
 const userName = getUserName();
@@ -34,6 +34,9 @@ const processInput = async (data) => {
             break;
         case "rn":
             await rn(currentPath, argsArr);
+            break;
+        case "cp":
+            await cp(currentPath, argsArr);
             break;
         case "os":
             commandOs(argsArr);
