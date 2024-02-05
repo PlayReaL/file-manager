@@ -48,11 +48,12 @@ export const rn = async (currentDir, args) => {
     } else {
         oldFileName = path.join(currentDir, args[0]);
     }
-    if (path.isAbsolute(args[1])) {
-        newFileName = args[1];
-    } else {
-        newFileName = path.join(currentDir, args[1]);
+    const f = path.basename(args[1]);
+    if (f !== args[1]) {
+        process.stdout.write("Invalid input\n");
+        return;
     }
+    newFileName = path.join(path.dirname(oldFileName), f);
     try {
         await fs.promises.access(newFileName, fs.promises.constants.F_OK);
         console.log("Operation failed");
